@@ -1,0 +1,111 @@
+ALGORITHM algorithm_name
+VAR
+i,j:INTEGER;
+somme:INTEGER:=0;
+tab1:array_of INTEGER[4];
+tab2:array_of INTEGER[5];
+tab1:=[3,1,7,9];
+tab2:=[2,4,1,9,3];
+HASH_TABLE<integer,integer>
+    set_declarations
+BEGIN
+///distinct elements
+check:=false
+for i from 0 to 3 step 1 Do 
+for j from 0 to 4 step 1 Do 
+if tab1[i]=tab2[j] then
+check:=true
+end if
+end for
+if (check:=false)
+somme:= somme+tab1[i]
+end if
+end for
+
+check:=false
+for j from 0 to 4 step 1 Do 
+for i from 0 to 3 step 1 Do 
+if tab2[j]=tab1[i] then
+check:=true
+end if
+end for
+if (check:=false)
+somme:= somme+tab2[j]
+end if
+end for
+---------------------------------------------------------------------------------
+/// overlapping elements 
+check:=false
+for i from 0 to 3 step 1 Do 
+for j from 0 to 4 step 1 Do 
+if tab1[i]=tab2[j] then
+check:=true
+end if
+end for
+if (check:=true)
+somme:= somme+tab1[i]
+end if
+end for
+
+check:=false
+for j from 0 to 4 step 1 Do 
+for i from 0 to 3 step 1 Do 
+if tab2[j]=tab1[i] then
+check:=true
+end if
+end for
+if (check:=true)
+somme:= somme+tab2[j]
+end if
+end for
+_____________________________________________________________________________________
+///distinct elements
+for i from 0 to 4 step 1 Do
+if (htab.lookup(tab1[i])=true) then
+count := htab.get(tab1[i]);
+htab.insert(tab1[i],count+1);
+ELSE
+htab.insert(tab1[i],1);
+end if
+END_For
+for j from 0 to 3 step 1 Do
+if (htab.lookup(tab2[j])=true) then
+count := htab.get(tab2[j]);
+htab.insert(tab2[j],count+1);
+ELSE
+htab.insert(tab2[j],1);
+end if
+END_For
+FOR htab.key from 0 to htab.key.lenght step 1 do 
+if (htab.value=1) then
+count=htab.key;
+end if 
+end for
+---------------------------------------------------------------------------------------
+//overlapping elements 
+for i from 0 to 4 step 1 Do
+if (htab.lookup(tab1[i])=true) then
+count := htab.get(tab1[i]);
+htab.insert(tab1[i],count+1);
+ELSE
+htab.insert(tab1[i],1);
+end if
+END_For
+for j from 0 to 3 step 1 Do
+if (htab.lookup(tab2[j])=true) then
+count := htab.get(tab2[j]);
+htab.insert(tab2[j],count+1);
+ELSE
+htab.insert(tab2[j],1);
+end if
+END_For
+FOR htab.key from 0 to htab.key.lenght step 1 do 
+if (htab.value=2) then
+count=htab.key;
+end if 
+end for
+
+
+
+    set_instructions
+END
